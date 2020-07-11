@@ -14,44 +14,67 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        centerTitle: true,
+        title: Text(
+          "Login",
+          textAlign: TextAlign.center,
+        ),
         actions: <Widget>[
           //logout option widget
         ],
       ),
-      body: Form(
-          key: _formkey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                validator: (input) {
-                  if (input.isEmpty) {
-                    return "Please enter something";
-                  }
-                },
-                onSaved: (input) {
-                  _email = input;
-                },
-                decoration: InputDecoration(labelText: 'Email'),
-              ),
-              TextFormField(
-                validator: (input) {
-                  if (input.isEmpty) {
-                    return "Enter Password";
-                  }
-                },
-                onSaved: (input) {
-                  _password = input;
-                },
-                decoration: InputDecoration(labelText: "Password"),
-                obscureText: true,
-              ),
-              RaisedButton(
-                onPressed: signIn,
-                child: Text("Sign In"),
-              )
-            ],
-          )),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Form(
+              key: _formkey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    validator: (input) {
+                      if (input.isEmpty) {
+                        return "Please enter something";
+                      }
+                    },
+                    onSaved: (input) {
+                      _email = input;
+                    },
+                    decoration: InputDecoration(labelText: 'Email'),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    validator: (input) {
+                      if (input.isEmpty) {
+                        return "Enter Password";
+                      }
+                    },
+                    onSaved: (input) {
+                      _password = input;
+                    },
+                    decoration: InputDecoration(labelText: "Password"),
+                    obscureText: true,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(52),
+                    child: RaisedButton(
+                      //shape: ShapeBorder.,
+                      color: Colors.orangeAccent,
+                      splashColor: Colors.orange[200],
+                      animationDuration: Duration(seconds: 2),
+                      textColor: Colors.white,
+                      onPressed: signIn,
+                      child: Text("Sign In"),
+                    ),
+                  )
+                ],
+              )),
+        ),
+      ),
     );
   }
 
