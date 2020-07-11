@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "404008014382",
+    "firebase_url": "https://ccen-a2adb.firebaseio.com",
+    "project_id": "ccen-a2adb",
+    "storage_bucket": "ccen-a2adb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404008014382:android:bc673785adc01b65e445bf",
+        "android_client_info": {
+          "package_name": "com.example.cce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404008014382-mik86i0m4cqi4rsgqst7ilei3qn3geji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFqTlwIC88FPr5g3aNxQ_y8_oS9Y6WgoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404008014382-mik86i0m4cqi4rsgqst7ilei3qn3geji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
