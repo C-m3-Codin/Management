@@ -23,10 +23,28 @@ class _HomeScreenState extends State<HomeScreen> {
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: <Widget>[
-              DrawerHeader(
-                child: Text('Drawer Header'),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
+              UserAccountsDrawerHeader(
+                onDetailsPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Profile()),
+                  );
+                },
+                accountName: Text("Annon Here"),
+                accountEmail: Text("Annon@gotYou.com"),
+                currentAccountPicture: CircleAvatar(
+                  // backgroundColor:
+                  //     Theme.of(context).platform == TargetPlatform.iOS
+                  //         ? Colors.blue
+                  //         : Colors.white,
+
+                  backgroundImage: NetworkImage(
+                    "https://images5.alphacoders.com/423/thumb-1920-423529.jpg",
+                  ),
+                  child: Text(
+                    "A",
+                    style: TextStyle(fontSize: 40.0),
+                  ),
                 ),
               ),
               ListTile(
