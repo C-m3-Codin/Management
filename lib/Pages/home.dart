@@ -1,3 +1,4 @@
+import 'package:cce/Pages/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +56,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: Container(
-            child: Text("from login now Home stateless from sub directory")));
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("from login now Home stateless from sub directory"),
+            RaisedButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            })
+          ],
+        )));
   }
 }
