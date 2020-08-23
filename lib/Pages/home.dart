@@ -1,6 +1,10 @@
+import 'package:cce/Pages/Login.dart';
 import 'package:cce/Pages/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -12,6 +16,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<Null> getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    String stringValue = prefs.getString('userId');
+    print("from getStri" + stringValue);
+    String us = prefs.getString('userId');
+    // return stringValue;
+    setState(() {
+      userId = us;
+    });
+  }
+
+  @override
+  Future<void> initState() {
+    // TODO: implement initState
+    userId = "Fetching..";
+    getStringValuesSF();
+
+    setState(() {});
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               ListTile(
-                title: Text('Item 2'),
+                title: Text(userId),
                 onTap: () {
                   // Update the state of the app.
                   // ...
@@ -84,7 +110,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => Profile()),
               );
-            })
+            }),
+            RaisedButton(
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove('userId');
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext ctx) => LoginPage()));
+              },
+              child: Text('Logout'),
+            ),
           ],
         )));
   }
