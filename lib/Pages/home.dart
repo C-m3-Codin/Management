@@ -56,8 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => Profile()),
                   );
                 },
-                accountName: Text("Annon Here"),
-                accountEmail: Text("Annon@gotYou.com"),
+                accountName: Text("Annon "),
+                accountEmail: Text(userId),
                 currentAccountPicture: CircleAvatar(
                   // backgroundColor:
                   //     Theme.of(context).platform == TargetPlatform.iOS
@@ -113,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }),
             RaisedButton(
               onPressed: () async {
+                success = false;
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.remove('userId');
                 Navigator.pushReplacement(

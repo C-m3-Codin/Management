@@ -37,71 +37,94 @@ class _LoginPageState extends State<LoginPage> {
       // );
     } else {
       return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              "Login",
-              textAlign: TextAlign.center,
-            ),
-            actions: <Widget>[
-              //logout option widget
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Center(
-              child: Form(
-                  key: _formkey,
-                  child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        validator: (input) {
-                          if (input.isEmpty) {
-                            _email = "BackDoor@Login.com";
-                          }
-                        },
-                        onSaved: (input) {
-                          _email = input;
-                        },
-                        decoration: InputDecoration(labelText: 'Email'),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        validator: (input) {
-                          if (input.isEmpty) {
-                            _password = "BackDoor@Login.com";
-                            // return "Enter Password";
-                          }
-                        },
-                        onSaved: (input) {
-                          _password = input;
-                        },
-                        decoration: InputDecoration(labelText: "Password"),
-                        obscureText: true,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(52),
-                        child: RaisedButton(
-                          //shape: ShapeBorder.,
-                          color: Colors.orangeAccent,
-                          splashColor: Colors.orange[200],
-                          animationDuration: Duration(seconds: 2),
-                          textColor: Colors.white,
-                          onPressed: signIn,
-                          child: Text("Sign In"),
+          backgroundColor: Colors.purple,
+          // appBar: AppBar(
+          //   centerTitle: true,
+          //   title: Text(
+          //     "Login",
+          //     textAlign: TextAlign.center,
+          //   ),
+          //   actions: <Widget>[
+          //     //logout option widget
+          //   ],
+          // ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Center(
+                child: Form(
+                    key: _formkey,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 40),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            "https://www.collegebatch.com/static/clg-gallery/christ-college-irinjalakuda-thrissur-64567.jpg",
+                          ),
+                          radius: 150.0,
                         ),
-                      ),
-                      RaisedButton(onPressed: () {
-                        success = true;
-                        setState(() {});
-                      })
-                    ],
-                  )),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text("Thats Where i thought i was goin"),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ClipRRect(
+                          child: TextFormField(
+                            decoration: InputDecoration(labelText: "id"),
+
+                            validator: (input) {
+                              if (input.isEmpty) {
+                                _email = "BackDoor@Login.com";
+                              }
+                            },
+                            onSaved: (input) {
+                              _email = input;
+                            },
+                            // decoration: InputDecoration(labelText: 'Email'),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          validator: (input) {
+                            if (input.isEmpty) {
+                              _password = "BackDoor@Login.com";
+                              // return "Enter Password";
+                            }
+                          },
+                          onSaved: (input) {
+                            _password = input;
+                          },
+                          decoration: InputDecoration(labelText: "Password"),
+                          obscureText: true,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: RaisedButton(
+                            //shape: ShapeBorder.,
+                            color: Colors.orangeAccent,
+                            splashColor: Colors.orange[200],
+                            animationDuration: Duration(seconds: 2),
+                            textColor: Colors.white,
+                            onPressed: signIn,
+                            child: Text(
+                                "Sign In (Backdoor active no creds required)"),
+                          ),
+                        ),
+                        RaisedButton(onPressed: () {
+                          success = true;
+                          setState(() {});
+                        })
+                      ],
+                    )),
+              ),
             ),
           ));
     }
