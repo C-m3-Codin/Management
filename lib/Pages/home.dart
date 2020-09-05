@@ -1,4 +1,4 @@
-import 'package:cce/Pages/Login.dart';
+import 'package:cce/Pages/Register.dart';
 import 'package:cce/Pages/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext ctx) => LoginPage()));
+                        builder: (BuildContext ctx) => RegisterPage()));
               },
               child: Text('Logout'),
             ),
