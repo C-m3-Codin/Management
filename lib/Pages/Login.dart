@@ -1,9 +1,10 @@
 import 'package:cce/Pages/home.dart';
+import 'package:cce/Theme/COLORS.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -28,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     if ((success == true)) {
@@ -37,96 +39,147 @@ class _LoginPageState extends State<LoginPage> {
       // );
     } else {
       return Scaffold(
-          backgroundColor: Colors.purple,
-          // appBar: AppBar(
-          //   centerTitle: true,
-          //   title: Text(
-          //     "Login",
-          //     textAlign: TextAlign.center,
-          //   ),
-          //   actions: <Widget>[
-          //     //logout option widget
-          //   ],
-          // ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Center(
-                child: Form(
-                    key: _formkey,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 40),
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            "https://www.collegebatch.com/static/clg-gallery/christ-college-irinjalakuda-thrissur-64567.jpg",
-                          ),
-                          radius: 150.0,
+        backgroundColor: COLORS.colorBackground,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+            child: Form(
+                key: _formkey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Welcome to",
+                          style: TextStyle(
+                              color: COLORS.colorPrimary,
+                              fontSize: 45,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
-                          height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "CCE Notes",
+                          style: TextStyle(
+                              color: COLORS.colorPrimaryDark,
+                              fontSize: 50,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold),
                         ),
-                        Text("Thats Where i thought i was goin"),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ClipRRect(
-                          child: TextFormField(
-                            decoration: InputDecoration(labelText: "id"),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
 
-                            validator: (input) {
-                              if (input.isEmpty) {
-                                _email = "BackDoor@Login.com";
-                              }
-                            },
-                            onSaved: (input) {
-                              _email = input;
-                            },
-                            // decoration: InputDecoration(labelText: 'Email'),
+                      //Email Field
+
+                      TextFormField(
+                        validator: (val) => val.isEmpty || !(val.contains('@'))
+                            ? _email = "BackDoor@Login.com"
+                            : null,
+                        onSaved: (input) {
+                          _email = input;
+                        },
+                        style: TextStyle(color: Colors.white),
+                        cursorColor: COLORS.colorAccent,
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(
+                            color: COLORS.colorPrimaryDark,
+                          ),
+                          labelText: "Email",
+                          fillColor: Colors.white,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                BorderSide(width: 1, color: COLORS.colorAccent),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                width: 1, color: COLORS.colorPrimaryDark),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              _password = "BackDoor@Login.com";
-                              // return "Enter Password";
-                            }
-                          },
-                          onSaved: (input) {
-                            _password = input;
-                          },
-                          decoration: InputDecoration(labelText: "Password"),
-                          obscureText: true,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          child: RaisedButton(
-                            //shape: ShapeBorder.,
-                            color: Colors.orangeAccent,
-                            splashColor: Colors.orange[200],
-                            animationDuration: Duration(seconds: 2),
-                            textColor: Colors.white,
-                            onPressed: signIn,
-                            child: Text(
-                                "Sign In (Backdoor active no creds required)"),
+                      ),
+
+                      SizedBox(
+                        height: 25,
+                      ),
+
+                      //Password Field
+
+                      TextFormField(
+                        validator: (input) => input.isEmpty || input.length < 6
+                            ? _password = "BackDoor@Login.com"
+                            : 'Successful',
+                        onSaved: (input) {
+                          _password = input;
+                        },
+
+                        obscureText: true,
+                        style: TextStyle(color: Colors.white),
+                        cursorColor: COLORS.colorAccent,
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(
+                            color: COLORS.colorPrimaryDark,
+                          ),
+                          labelText: "Password",
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                BorderSide(width: 1, color: COLORS.colorAccent),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                width: 1, color: COLORS.colorPrimaryDark),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(),
                           ),
                         ),
-                        RaisedButton(onPressed: () {
-                          success = true;
-                          setState(() {});
-                        })
-                      ],
-                    )),
-              ),
-            ),
-          ));
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          onPressed: () async {
+                             signIn();
+                          },
+                          color: COLORS.colorPrimaryDark,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                            child: Text("Sign up"),
+                          ),
+                        ),
+                      ),
+                      FlatButton(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          onPressed: () {
+                            //goto login screen
+                            //Navigator.pushNamed(context, '/Login');
+                          },
+                          child: Text(
+                            "Already registered ? Login Here",
+                            style: TextStyle(color: COLORS.colorPrimaryDark),
+                          )),
+                    ],
+                  ),
+                )),
+          ),
+        ),
+      );
     }
   }
 
