@@ -1,9 +1,6 @@
-import 'package:cce/Pages/home.dart';
+import 'package:cce/Theme/COLORS.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,165 +9,141 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String _password, _email;
-
-  @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   success = false;
-  // }
-  addStringToSF(String eml) async {
-    print("in before shared");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('userId', eml);
-    print("in after shared");
-  }
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    if ((success == true)) {
-      return HomeScreen();
-      // return Container(
-      // child: Text("Logged in"),
-      // );
-    } else {
-      return Scaffold(
-          backgroundColor: Colors.purple,
-          // appBar: AppBar(
-          //   centerTitle: true,
-          //   title: Text(
-          //     "Login",
-          //     textAlign: TextAlign.center,
-          //   ),
-          //   actions: <Widget>[
-          //     //logout option widget
-          //   ],
-          // ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Center(
-                child: Form(
-                    key: _formkey,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 40),
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            "https://www.collegebatch.com/static/clg-gallery/christ-college-irinjalakuda-thrissur-64567.jpg",
-                          ),
-                          radius: 150.0,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text("Thats Where i thought i was goin"),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ClipRRect(
-                          child: TextFormField(
-                            decoration: InputDecoration(labelText: "id "),
+    return Scaffold(
+      backgroundColor: COLORS.colorBackground,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          child: Form(
+              key: _formkey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Hello there",
+                        style: TextStyle(
+                            color: COLORS.colorPrimary,
+                            fontSize: 55,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Welcome Back",
+                        style: TextStyle(
+                            color: COLORS.colorPrimaryDark,
+                            fontSize: 42,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
 
-                            validator: (input) {
-                              if (input.isEmpty) {
-                                _email = "BackDoor@Login.com";
-                              }
-                            },
-                            onSaved: (input) {
-                              _email = input;
-                            },
-                            // decoration: InputDecoration(labelText: 'Email'),
-                          ),
+                    //Email Field
+
+                    TextFormField(
+                      validator: (val) => val.isEmpty || !(val.contains('@'))
+                          ? 'Enter a valid email address'
+                          : null,
+                      onSaved: (input) {
+                        _email = input;
+                      },
+                      style: TextStyle(color: Colors.white),
+                      cursorColor: COLORS.colorAccent,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(
+                          color: COLORS.colorPrimaryDark,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              _password = "BackDoor@Login.com";
-                              // return "Enter Password";
-                            }
-                          },
-                          onSaved: (input) {
-                            _password = input;
-                          },
-                          decoration: InputDecoration(labelText: "Password"),
-                          obscureText: true,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ClipRRect(
+                        labelText: "Email",
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          child: RaisedButton(
-                            //shape: ShapeBorder.,
-                            color: Colors.orangeAccent,
-                            splashColor: Colors.orange[200],
-                            animationDuration: Duration(seconds: 2),
-                            textColor: Colors.white,
-                            onPressed: signIn,
-                            child: Text(
-                                "Sign In (Backdoor active no creds required)"),
-                          ),
+                          borderSide:
+                              BorderSide(width: 1, color: COLORS.colorAccent),
                         ),
-                        RaisedButton(onPressed: () {
-                          success = true;
-                          setState(() {});
-                        })
-                      ],
-                    )),
-              ),
-            ),
-          ));
-    }
-  }
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                              width: 1, color: COLORS.colorPrimaryDark),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(),
+                        ),
+                      ),
+                    ),
 
-  void signIn() async {
-    final formVal = _formkey.currentState;
+                    SizedBox(
+                      height: 25,
+                    ),
 
-    if (formVal.validate()) {}
-    //login
-    formVal.save();
-    print("\n\n\n\n\logging with $_email and password $_password\n\n\n\n\n\n");
-    if (_email.isEmpty) {
-      _email = "backdoor2@login.com";
-      _password = "backdoor2@login.com";
-    }
-    print("\n\n\n\n\logging with $_email and password $_password\n\n\n\n\n\n");
-    try {
-      final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      ))
-          .user;
+                    //Password Field
 
-      if (user != null) {
-        print("before shared");
-        await addStringToSF(user.email.toString());
-        print("after shared");
-        setState(() {
-          success = true;
-          _email = user.email;
-          print(user.email);
-        });
-      } else {
-        setState(() {
-          success = false;
-        });
-      }
-
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-      print("\n\n\n\nthis shit ran\n\n\n\n");
-      print(user.toString());
-      //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-      print("\n\n\n\the fuck is it still here\n\n\n\n");
-    } catch (e) {
-      print(e.message);
-    }
+                    TextFormField(
+                      validator: (val) => val.isEmpty || val.length < 6
+                          ? 'Enter a password greater than 6 characters'
+                          : null,
+                      onSaved: (input) {
+                        _password = input;
+                      },
+                      obscureText: true,
+                      style: TextStyle(color: Colors.white),
+                      cursorColor: COLORS.colorAccent,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(
+                          color: COLORS.colorPrimaryDark,
+                        ),
+                        labelText: "Password",
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              BorderSide(width: 1, color: COLORS.colorAccent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                              width: 1, color: COLORS.colorPrimaryDark),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: () async {
+                          //         loginIn();
+                        },
+                        color: COLORS.colorPrimaryDark,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                          child: Text("Sign In"),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+        ),
+      ),
+    );
   }
 }
