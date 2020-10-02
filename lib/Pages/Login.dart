@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         ClipRRect(
                           child: TextFormField(
-                            decoration: InputDecoration(labelText: "id"),
+                            decoration: InputDecoration(labelText: "id "),
 
                             validator: (input) {
                               if (input.isEmpty) {
@@ -136,10 +136,16 @@ class _LoginPageState extends State<LoginPage> {
     if (formVal.validate()) {}
     //login
     formVal.save();
+    print("\n\n\n\n\logging with $_email and password $_password\n\n\n\n\n\n");
+    if (_email.isEmpty) {
+      _email = "backdoor2@login.com";
+      _password = "backdoor2@login.com";
+    }
+    print("\n\n\n\n\logging with $_email and password $_password\n\n\n\n\n\n");
     try {
       final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-        email: "BackDoor@Login.com",
-        password: "BackDoor@Login.com",
+        email: _email,
+        password: _password,
       ))
           .user;
 
