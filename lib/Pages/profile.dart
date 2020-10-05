@@ -1,15 +1,20 @@
+import 'package:cce/Pages/home.dart';
+import 'package:cce/models/UserModels.dart';
 import 'package:flutter/material.dart';
+import 'package:cce/main.dart';
 
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
 }
 
-String sem = 'S1';
-String branch = 'CSE';
+// String sem = 'S1';
+// String branch = 'CSE';
 // String dropdownValue = 'One';
 
 class _ProfileState extends State<Profile> {
+  final idController = TextEditingController();
+  final NameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +89,6 @@ class _ProfileState extends State<Profile> {
                                         SizedBox(
                                           height: 5.0,
                                         ),
-
                                         DropdownButton<String>(
                                           value: sem,
                                           icon: Icon(Icons.arrow_downward),
@@ -117,27 +121,6 @@ class _ProfileState extends State<Profile> {
                                             );
                                           }).toList(),
                                         ),
-
-// =====================================
-
-                                        // Text(
-                                        //   "Posts",
-                                        //   style: TextStyle(
-                                        //     color: Colors.redAccent,
-                                        //     fontSize: 22.0,
-                                        //     fontWeight: FontWeight.bold,
-                                        //   ),
-                                        // ),
-                                        // SizedBox(
-                                        //   height: 5.0,
-                                        // ),
-                                        // Text(
-                                        //   "5200",
-                                        //   style: TextStyle(
-                                        //     fontSize: 20.0,
-                                        //     color: Colors.pinkAccent,
-                                        //   ),
-                                        // )
                                       ],
                                     ),
                                   ),
@@ -189,30 +172,6 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                   ),
-                                  // Expanded(
-                                  //   child: Column(
-                                  //     children: <Widget>[
-                                  //       Text(
-                                  //         "Follow",
-                                  //         style: TextStyle(
-                                  //           color: Colors.redAccent,
-                                  //           fontSize: 22.0,
-                                  //           fontWeight: FontWeight.bold,
-                                  //         ),
-                                  //       ),
-                                  //       SizedBox(
-                                  //         height: 5.0,
-                                  //       ),
-                                  //       Text(
-                                  //         "1300",
-                                  //         style: TextStyle(
-                                  //           fontSize: 20.0,
-                                  //           color: Colors.pinkAccent,
-                                  //         ),
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ),
@@ -221,7 +180,6 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   )),
-
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -234,6 +192,7 @@ class _ProfileState extends State<Profile> {
                     child: Card(
                       clipBehavior: Clip.antiAlias,
                       child: TextField(
+                        controller: idController,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -249,6 +208,7 @@ class _ProfileState extends State<Profile> {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: TextField(
+                      controller: NameController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: 'Enter Name'),
                     ),
@@ -259,46 +219,25 @@ class _ProfileState extends State<Profile> {
                   Text("tadaaa"),
                 ],
               ),
-              // Container(
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(
-              //         vertical: 30.0, horizontal: 16.0),
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: <Widget>[
-              //         Text(
-              //           "Bio:",
-              //           style: TextStyle(
-              //               color: Colors.redAccent,
-              //               fontStyle: FontStyle.normal,
-              //               fontSize: 28.0),
-              //         ),
-              //         SizedBox(
-              //           height: 10.0,
-              //         ),
-              //         Text(
-              //           'My name is Alice and I am  a freelance mobile app developper.\n'
-              //           'if you need any mobile app for your company then contact me for more informations',
-              //           style: TextStyle(
-              //             fontSize: 22.0,
-              //             fontStyle: FontStyle.italic,
-              //             fontWeight: FontWeight.w300,
-              //             color: Colors.black,
-              //             letterSpacing: 2.0,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               SizedBox(
                 height: 20.0,
               ),
               Container(
                 width: 300.00,
                 child: RaisedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      UserModel user = UserModel(
+                          name: NameController.text,
+                          sem: sem,
+                          branch: branch,
+                          id: idController.text,
+                          email: userColegeId);
+                      deetsEntered = true;
+                      print(" user created \n\n\n\n");
+                      print(user);
+
+                      await user.uploadDeets();
+
                       Navigator.pop(context);
                     },
                     shape: RoundedRectangleBorder(
@@ -307,10 +246,6 @@ class _ProfileState extends State<Profile> {
                     padding: EdgeInsets.all(0.0),
                     child: Ink(
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            colors: [Colors.pinkAccent, Colors.yellowAccent]),
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: Container(

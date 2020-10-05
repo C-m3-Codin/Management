@@ -122,7 +122,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         onSaved: (input) {
                           _password = input;
                         },
-
                         obscureText: true,
                         style: TextStyle(color: Colors.white),
                         cursorColor: COLORS.colorAccent,
@@ -156,7 +155,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
                           onPressed: () async {
-                             signIn();
+                            signIn();
+
+                            print("\n\n\n\n\n\n logged in ");
                           },
                           color: COLORS.colorPrimaryDark,
                           child: Padding(
@@ -168,7 +169,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       FlatButton(
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()));
                           },
                           child: Text(
                             "Already registered ? Login Here",
@@ -190,7 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
     //login
     formVal.save();
     try {
-      final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+      final user = (await _auth.signInWithEmailAndPassword(
         email: "BackDoor@Login.com",
         password: "BackDoor@Login.com",
       ))
@@ -206,6 +210,9 @@ class _RegisterPageState extends State<RegisterPage> {
           print(user.email);
         });
       } else {
+        print("logged in sin in ");
+        print("\n\n\n\n\n\n logged in sign in");
+
         setState(() {
           success = false;
         });
